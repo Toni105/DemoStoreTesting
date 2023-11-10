@@ -29,16 +29,15 @@ public class CartTestFunctionality_Cross_Browser {
 
     @BeforeMethod
     @Parameters ("browser")
-    public void setUp(String cross) {
-        String browserName = cross;
+    public void setUp(String browser) {
 
-        if(browserName.equalsIgnoreCase("chrome")) {
+        if(browser.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        }   else if (browserName.equalsIgnoreCase("firefox")) {
+        }   else if (browser.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
-        }   else if (browserName.equalsIgnoreCase("edge")){
+        }   else if (browser.equalsIgnoreCase("edge")){
             WebDriverManager.edgedriver().setup();
             driver = new EdgeDriver();
         }

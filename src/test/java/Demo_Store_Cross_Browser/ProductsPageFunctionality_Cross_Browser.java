@@ -27,8 +27,7 @@ public class ProductsPageFunctionality_Cross_Browser {
 
     @BeforeMethod
     @Parameters("browser")
-    public void setUp(String cross) {
-        String browserName = cross;
+    public void setUp(String browserName) {
 
         if(browserName.equalsIgnoreCase("chrome")) {
             WebDriverManager.chromedriver().setup();
