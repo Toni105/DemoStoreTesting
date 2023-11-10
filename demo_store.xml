@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test_of_whole_site">
+    <test name="Demo_Store">
+        <classes>
+            <class name="Demo_Store.RegisterAndLoginTest">
+            </class>
+            <class name="Demo_Store.ProductsPageFunctionality">
+            </class>
+            <class name="Demo_Store.CartTestFunctionality">
+            </class>
+            <class name="Demo_Store.CheckoutTest">
+            </class>
+        </classes>
+    </test>
+</suite>
