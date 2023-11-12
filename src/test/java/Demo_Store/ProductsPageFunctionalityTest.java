@@ -10,7 +10,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class ProductsPageFunctionality {
+public class ProductsPageFunctionalityTest {
 
     WebDriver driver;
 
@@ -32,10 +31,10 @@ public class ProductsPageFunctionality {
         driver.get("http://demostore.supersqa.com/");
     }
 
+
     @Test (priority = 1)
     public void checkProductSortingInAlphabeticallyOrder() {
         // Check is there correct number of products (there are 37 products in shop)
-        SoftAssert softAssert = new SoftAssert();
         String number_of_product = driver.findElement(By.xpath("(//p[@class='woocommerce-result-count'])")).getText();
         Assert.assertTrue(number_of_product.contains("37"), "\n There are wrong number of products in shop! \n");
 
@@ -46,7 +45,7 @@ public class ProductsPageFunctionality {
         List<String> unsortedFilterPriceList = new ArrayList<>();
 
         for(WebElement p : beforeFilterPrice) {
-            unsortedFilterPriceList.add(String.valueOf(p.getText().toLowerCase()));
+            unsortedFilterPriceList.add(p.getText().toLowerCase());
         }
 
         // Capture the prices second time and sort them
@@ -54,7 +53,7 @@ public class ProductsPageFunctionality {
         List<String> sortedFilterPriceList = new ArrayList<>();
 
         for(WebElement p : beforeFilterPrice) {
-            sortedFilterPriceList.add(String.valueOf(p.getText().toLowerCase()));
+            sortedFilterPriceList.add(p.getText().toLowerCase());
         }
         Collections.sort(sortedFilterPriceList);
 
@@ -69,13 +68,10 @@ public class ProductsPageFunctionality {
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
 
-        // Enter the image of the product and close the image after 2 seconds
-        driver.findElement(By.xpath("//a[contains(text(),'\uD83D\uDD0D')]")).click();
-        driver.navigate().refresh();
-
         // Choose a size "Medium" of T-Shirt
         WebElement medium_size = driver.findElement(By.xpath("(//td[@class='value']//select)[2]"));
         Select medium = new Select(medium_size);
+        Thread.sleep(1000);
         medium.selectByVisibleText("Medium");
 
         // Take a look of every available color
@@ -107,6 +103,7 @@ public class ProductsPageFunctionality {
         Assert.assertTrue(driver.findElement(By.xpath("//h1[text()='T-Shirt with Logo']")).isDisplayed());
     }
 
+
     @Test (priority = 3)
     public void writeReview() {
         // Go to product page (T-Shirt)
@@ -127,7 +124,7 @@ public class ProductsPageFunctionality {
         // Write a review
         char randomCharacter = (char)((new java.util.Random().nextBoolean() ? 'a' : 'A') + new java.util.Random().nextInt(26));
 
-        String text_of_review = "T-shirt is great. I love it :)" + randomCharacter;
+        String text_of_review = "T-shirt is great. I love it T" + randomCharacter;
         driver.findElement(By.xpath("//p[@class='comment-form-comment']//textarea[1]")).sendKeys(text_of_review);
 
         // Enter "Name" and "Email", then click "Submit"
@@ -139,8 +136,8 @@ public class ProductsPageFunctionality {
 
 
     @Test (priority = 4)
-    // Sending review without rating (1-5 stars)
     public void submitReviewWithoutRating(){
+        // Sending review without rating (1-5 stars)
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
 
@@ -148,7 +145,7 @@ public class ProductsPageFunctionality {
         driver.findElement(By.linkText("Reviews (0)")).click();
         driver.findElement(By.id("submit")).click();
 
-        //Handle alert "Please select a rating"
+        //Handle alert pop-up "Please select a rating"
         Alert alarm = driver.switchTo().alert();
         alarm.accept();
     }
@@ -219,14 +216,13 @@ public class ProductsPageFunctionality {
 
         // Verify "Error: Please fill the required fields."
         Assert.assertEquals(driver.getCurrentUrl(),"http://demostore.supersqa.com/wp-comments-post.php","There are no expected error!");
-
     }
+
 
     @AfterMethod
     public void tearDown(){
         driver.quit();
     }
-
 }
 
 
