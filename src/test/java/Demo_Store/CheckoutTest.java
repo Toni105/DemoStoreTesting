@@ -27,9 +27,10 @@ public class CheckoutTest {
         driver.get("http://demostore.supersqa.com/");
     }
 
-    // Make order as new customer
+
     @Test (priority = 1)
     public void checkoutNewCustomer() throws InterruptedException {
+        // Make order as new customer
         //  Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -89,12 +90,11 @@ public class CheckoutTest {
         // Click "Place order"
         Thread.sleep(2000);
         driver.findElement(By.id("place_order")).click();
-
     }
 
     @Test(priority = 2)
-    // Make order as existing customer
     public void checkoutExistingCustomer () throws InterruptedException {
+        // Make order as existing customer
         // Choose one product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -151,8 +151,8 @@ public class CheckoutTest {
 
 
     @Test (priority = 3)
-    // Make order and check functionality to ship to a different address (than billing address)
     public void checkoutShipToDifferentAddress() throws InterruptedException {
+        // Make order and check functionality to ship to a different address (than billing address)
         //  Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -223,14 +223,14 @@ public class CheckoutTest {
         driver.findElement(By.id("shipping_address_1")).sendKeys("Solinska 365");
 
         // Click "Place order"
+        Thread.sleep(1000);
         driver.findElement(By.id("place_order")).click();
-
     }
 
 
     @Test (priority = 4)
-    // Fill out the entire checkout list except "First name", then order
     public void CheckoutMissingFirstName() throws InterruptedException {
+        // Fill out the entire checkout list except "First name", then order
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -298,8 +298,8 @@ public class CheckoutTest {
 
 
     @Test (priority = 5)
-    // Fill out the entire checkout list except "Last name", then order
     public void CheckoutMissingLastName() throws InterruptedException {
+        // Fill out the entire checkout list except "Last name", then order
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -367,8 +367,8 @@ public class CheckoutTest {
 
 
     @Test (priority = 6)
-    // Fill out the entire checkout list except "Street Address", then order
     public void CheckoutMissingStreetAddress() throws InterruptedException {
+        // Fill out the entire checkout list except "Street Address", then order
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -436,9 +436,9 @@ public class CheckoutTest {
 
 
     @Test (priority = 7)
-    // Fill out the entire checkout list except "Town / City", then order
     public void CheckoutMissingCity() throws InterruptedException {
-        //  Choose product
+        // Fill out the entire checkout list except "Town / City", then order
+        // Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -479,9 +479,9 @@ public class CheckoutTest {
 
 
     @Test (priority = 8)
-    // Fill out the entire checkout list except "ZIP Code", then order
     public void CheckoutMissingZIPCode() throws InterruptedException {
-        //  Choose product
+        // Fill out the entire checkout list except "ZIP Code", then order
+        // Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -522,9 +522,9 @@ public class CheckoutTest {
 
 
     @Test (priority = 9)
-    // Fill out the entire checkout list except "Phone", then order
     public void CheckoutMissingPhone() throws InterruptedException {
-        //  Choose product
+        // Fill out the entire checkout list except "Phone", then order
+        // Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -565,8 +565,8 @@ public class CheckoutTest {
 
 
     @Test (priority = 10)
-    // Fill out the entire checkout list except "Email address", then order
     public void CheckoutMissingEmail() throws InterruptedException {
+        // Fill out the entire checkout list except "Email address", then order
         //  Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -608,8 +608,8 @@ public class CheckoutTest {
 
 
     @Test(priority = 11)
-    // There are "Free shipping on orders over $50"
-    public void freeShippingOption () throws InterruptedException {
+    public void freeShippingOption () {
+        // There are "Free shipping on orders over $50"
         // Add 4 products in cart (value of all products greater than $50)
         driver.findElement(By.xpath("(//a[contains(@class,'button product_type_simple')])[3]")).click();
         for (String addProducts : List.of("4", "5", "6", "8")) {
@@ -626,10 +626,10 @@ public class CheckoutTest {
     }
 
     @Test (priority = 12)
-    // Check that the coupon does not work on every text
-    //TODO Ask developer for working Coupon !!
     public void functionalityCouponCode(){
-        //  Choose product
+        // Check that the coupon does not work on every text
+        // TODO Ask developer for working Coupon !!
+        // Choose product
         driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[4]/a[2]")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"site-header-cart\"]/li[1]/a/span[2]"), "1 item"));
@@ -644,8 +644,7 @@ public class CheckoutTest {
         driver.findElement(By.xpath("//a[contains(text(),'Click here to enter your code')]")).click();
 
         // Enter "123456789" on Coupon Code entry
-        WebDriverWait w = new WebDriverWait(driver,Duration.ofSeconds(5));
-        w.until(ExpectedConditions.visibilityOfElementLocated(By.id("coupon_code")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("coupon_code")));
         String Coupon_code = "123456789";
         driver.findElement(By.id("coupon_code")).sendKeys(Coupon_code);
 
@@ -654,7 +653,7 @@ public class CheckoutTest {
 
         // Verify existence of error "Coupon "123456789" does not exist!"
 
-        w.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='woocommerce-error']//li[1]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ul[@class='woocommerce-error']//li[1]")));
 
         String text_of_error = driver.findElement(By.xpath("//ul[@class='woocommerce-error']//li[1]")).getText();
         Assert.assertEquals(text_of_error,"Coupon \"" + Coupon_code+ "\" does not exist!", "Error: Coupon should not work!");
@@ -663,8 +662,6 @@ public class CheckoutTest {
 
     @AfterMethod
     public void tearDown() {
-
         driver.quit();
     }
-
 }

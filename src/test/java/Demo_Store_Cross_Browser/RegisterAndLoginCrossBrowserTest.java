@@ -9,8 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -20,10 +19,10 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 
 
-public class RegisterAndLoginTest_Cross_Browser {
+
+public class RegisterAndLoginCrossBrowserTest {
 
     WebDriver driver;
 
@@ -61,18 +60,15 @@ public class RegisterAndLoginTest_Cross_Browser {
         driver.findElement(By.linkText("My account")).click();
 
         char randomCharacter = (char)((new java.util.Random().nextBoolean() ? 'a' : 'A') + new java.util.Random().nextInt(26));
-        System.out.println(randomCharacter); // a … z, A … Z
 
         // Enter Email address and Password, then click "Register"
-        String Email_address = randomCharacter + "rg@falsemail.com";
+        String Email_address = randomCharacter + "users@falsemail.com";
         String Password = "Idontdothatbut123!";
         driver.findElement(By.id("reg_email")).sendKeys(Email_address);
         driver.findElement(By.id("reg_password")).sendKeys(Password);
         driver.findElement(By.xpath("//button[text()='Register']")).click();
 
         // Click "My account" and fill details First name and Last name
-        WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(5));
-        w.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Account details")));
         driver.findElement(By.linkText("Account details")).click();
         String First_name = "First";
         String Last_name = "Last";
@@ -88,13 +84,12 @@ public class RegisterAndLoginTest_Cross_Browser {
 
         // Click "Logout"
         driver.findElement(By.xpath("//a[contains(text(),'Logout')]")).click();
-
     }
 
 
     @Test (priority = 2)
-//    Leave the email field empty in the registration
     public void register_without_Email() {
+        // Leave the email field empty in the registration
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -110,8 +105,8 @@ public class RegisterAndLoginTest_Cross_Browser {
 
 
     @Test (priority = 3)
-    // Enter e-mail witch is not valid (without @)
     public void register_without_validEmail(){
+        // Enter e-mail witch is not valid (without @)
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -126,13 +121,12 @@ public class RegisterAndLoginTest_Cross_Browser {
 
         // Confirm that registration cannot be done without e-mail
         Assert.assertEquals(driver.findElement(By.xpath("//button[text()='Register']")).getText(), "Register");
-
     }
 
 
     @Test (priority = 4)
-    // Enter e-mail witch is used to register before on the site
     public void register_with_UsedEmail() {
+        // Enter e-mail witch is used to register before on the site
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -216,7 +210,6 @@ public class RegisterAndLoginTest_Cross_Browser {
 
         // Confirm that login cannot be done without password
         Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='woocommerce'])[1]")).getText(), "Unknown email address. Check again or try your username.");
-
     }
 
 
@@ -237,14 +230,13 @@ public class RegisterAndLoginTest_Cross_Browser {
 
         // Confirm that login cannot be done without password
         Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='woocommerce'])[1]")).getText(), "Error: The password you entered for the email address " + username + " is incorrect. Lost your password?");
-
     }
 
 
     @AfterMethod (enabled = false)
     public void takeScreensForFailures(ITestResult testResult) {
-
         // Taking screenshot only when test Fails
+
         if (ITestResult.FAILURE == testResult.getStatus()) {
             TakesScreenshot screenshot = (TakesScreenshot) driver;
             File source = screenshot.getScreenshotAs(OutputType.FILE);
@@ -260,7 +252,6 @@ public class RegisterAndLoginTest_Cross_Browser {
 
     @AfterMethod
     public void tearDown(){
-
         driver.quit();
     }
 }

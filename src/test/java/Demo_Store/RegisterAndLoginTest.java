@@ -7,6 +7,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.io.FileHandler;
+
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +16,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+
 
 
 public class RegisterAndLoginTest {
@@ -33,9 +35,8 @@ public class RegisterAndLoginTest {
 
 
     @Test (priority = 1)
-    // Complete registration of new user, then log out
     public void registerUser_and_Logout() {
-
+        // Complete registration of new user, then log out
         // Verify that page title is correct and page is visible successfully
         String title = driver.getTitle();
         Assert.assertEquals(title,"Demo Store – Practice Automation The Right Way","\n Error: The title is not correct! \n");
@@ -45,9 +46,8 @@ public class RegisterAndLoginTest {
 
         char randomCharacter = (char)((new java.util.Random().nextBoolean() ? 'a' : 'A') + new java.util.Random().nextInt(26));
 
-
         // Enter Email address and Password, then click "Register"
-        String Email_address = randomCharacter + "rg@falsemail.com";
+        String Email_address = randomCharacter + "users@falsemail.com";
         String Password = "Idontdothatbut123!";
         driver.findElement(By.id("reg_email")).sendKeys(Email_address);
         driver.findElement(By.id("reg_password")).sendKeys(Password);
@@ -69,13 +69,12 @@ public class RegisterAndLoginTest {
 
         // Click "Logout"
         driver.findElement(By.xpath("//a[contains(text(),'Logout')]")).click();
-
     }
 
 
     @Test (priority = 2)
-//    Leave the email field empty in the registration
     public void register_without_Email() {
+        // Leave the email field empty in the registration
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -91,8 +90,8 @@ public class RegisterAndLoginTest {
 
 
     @Test (priority = 3)
-    // Enter e-mail witch is not valid (without @)
     public void register_without_validEmail(){
+        // Enter e-mail witch is not valid (without @)
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -107,13 +106,12 @@ public class RegisterAndLoginTest {
 
         // Confirm that registration cannot be done without e-mail
         Assert.assertEquals(driver.findElement(By.xpath("//button[text()='Register']")).getText(), "Register");
-
     }
 
 
     @Test (priority = 4)
-    // Enter e-mail witch is used to register before on the site
     public void register_with_UsedEmail() {
+        // Enter e-mail witch is used to register before on the site
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -197,7 +195,6 @@ public class RegisterAndLoginTest {
 
         // Confirm that login cannot be done without password
         Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='woocommerce'])[1]")).getText(), "Unknown email address. Check again or try your username.");
-
     }
 
 
@@ -218,13 +215,11 @@ public class RegisterAndLoginTest {
 
         // Confirm that login cannot be done without password
         Assert.assertEquals(driver.findElement(By.xpath("(//div[@class='woocommerce'])[1]")).getText(), "Error: The password you entered for the email address " + username + " is incorrect. Lost your password?");
-
     }
 
 
     @AfterMethod (enabled = false)
     public void takeScreensForFailures(ITestResult testResult) {
-
         // Taking screenshot only when test Fails
         if (ITestResult.FAILURE == testResult.getStatus()) {
             TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -241,7 +236,6 @@ public class RegisterAndLoginTest {
 
     @AfterMethod
     public void tearDown(){
-
         driver.quit();
     }
 }
