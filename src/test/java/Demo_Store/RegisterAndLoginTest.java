@@ -34,9 +34,9 @@ public class RegisterAndLoginTest {
     }
 
 
+    // Complete registration of new user, then log out
     @Test (priority = 1)
     public void registerUser_and_Logout() {
-        // Complete registration of new user, then log out
         // Verify that page title is correct and page is visible successfully
         String title = driver.getTitle();
         Assert.assertEquals(title,"Demo Store – Practice Automation The Right Way","\n Error: The title is not correct! \n");
@@ -72,9 +72,9 @@ public class RegisterAndLoginTest {
     }
 
 
+    // Leave the email field empty in the registration
     @Test (priority = 2)
     public void register_without_Email() {
-        // Leave the email field empty in the registration
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -89,9 +89,9 @@ public class RegisterAndLoginTest {
     }
 
 
+    // Enter e-mail witch is not valid (without @)
     @Test (priority = 3)
     public void register_without_validEmail(){
-        // Enter e-mail witch is not valid (without @)
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -109,9 +109,9 @@ public class RegisterAndLoginTest {
     }
 
 
+    // Enter e-mail witch is used to register before on the site
     @Test (priority = 4)
     public void register_with_UsedEmail() {
-        // Enter e-mail witch is used to register before on the site
         // Click on "My account"
         driver.findElement(By.linkText("My account")).click();
 
@@ -218,9 +218,9 @@ public class RegisterAndLoginTest {
     }
 
 
+    // Taking screenshot only when test Fails
     @AfterMethod (enabled = false)
     public void takeScreensForFailures(ITestResult testResult) {
-        // Taking screenshot only when test Fails
         if (ITestResult.FAILURE == testResult.getStatus()) {
             TakesScreenshot screenshot = (TakesScreenshot) driver;
             File source = screenshot.getScreenshotAs(OutputType.FILE);

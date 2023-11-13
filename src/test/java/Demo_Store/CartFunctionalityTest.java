@@ -33,9 +33,10 @@ public class CartFunctionalityTest {
     }
 
 
+    // Add 5 products to the cart, remove them all and then undo the last removed product
     @Test (priority = 1)
     public void addAndRemoveProductsInCart() throws InterruptedException {
-        // Add random 5 products from page
+        // Add 5 products from page
         driver.findElement(By.xpath("(//a[contains(@class,'button product_type_simple')])[3]")).click();
         for(String liNumber : List.of("4", "5", "6", "8")) {
             driver.findElement(By.xpath("//*[@id=\"main\"]/ul/li[" + liNumber + "]/a[2]")).click();
@@ -61,6 +62,7 @@ public class CartFunctionalityTest {
     }
 
 
+    // Taking screenshot only when test Fails
     @AfterMethod
     public void takeScreenshotForFailures(ITestResult testResult) {
         if (ITestResult.FAILURE == testResult.getStatus()) {
@@ -73,6 +75,36 @@ public class CartFunctionalityTest {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+
+    @Test (priority = 2)
+    public void checkProductSortingInAlphabeticallyOrder() {
+        // Check is there correct number of products (there are 37 products in shop)
+        String number_of_product = driver.findElement(By.xpath("(//p[@class='woocommerce-result-count'])")).getText();
+        Assert.assertTrue(number_of_product.contains("37"), "\n There are wrong number of products in shop! \n");
+
+        // Check default(alphabetically) sorting
+        // Capture the names of products
+        List<WebElement> beforeFilterPrice = driver.findElements(By.className("woocommerce-loop-product__title"));
+        // Remove and convert the string into double unsorted
+        List<String> unsortedFilterPriceList = new ArrayList<>();
+
+        for(WebElement p : beforeFilterPrice) {
+            unsortedFilterPriceList.add(p.getText().toLowerCase());
+        }
+
+        // Capture the prices second time and sort them
+        // Remove and convert the string into double unsorted
+        List<String> sortedFilterPriceList = new ArrayList<>();
+
+        for(WebElement p : beforeFilterPrice) {
+            sortedFilterPriceList.add(p.getText().toLowerCase());
+        }
+        Collections.sort(sortedFilterPriceList);
+
+        //Verify products order
+        Assert.assertEquals(unsortedFilterPriceList, sortedFilterPriceList,"Sorting is not done correctly");
     }
 
 
@@ -143,7 +175,7 @@ public class CartFunctionalityTest {
     }
 
 
-    @Test (priority = 2)
+    @Test (priority = 3)
     public void findProductBySearchBar() {
         // Searching for a specific product (V-Neck T-Shirt)
         driver.findElement(By.id("woocommerce-product-search-field-0")).clear();

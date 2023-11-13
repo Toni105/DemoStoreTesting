@@ -47,36 +47,6 @@ public class ProductsPageFunctionalityCrossTest {
 
 
     @Test (priority = 1)
-    public void checkProductSortingInAlphabeticallyOrder() {
-        // Check is there correct number of products (there are 37 products in shop)
-        String number_of_product = driver.findElement(By.xpath("(//p[@class='woocommerce-result-count'])")).getText();
-        Assert.assertTrue(number_of_product.contains("37"), "\n There are wrong number of products in shop! \n");
-
-        // Check default(alphabetically) sorting
-        // Capture the names of products
-        List<WebElement> beforeFilterPrice = driver.findElements(By.className("woocommerce-loop-product__title"));
-        // Remove and convert the string into double unsorted
-        List<String> unsortedFilterPriceList = new ArrayList<>();
-
-        for(WebElement p : beforeFilterPrice) {
-            unsortedFilterPriceList.add(p.getText().toLowerCase());
-        }
-
-        // Capture the prices second time and sort them
-        // Remove and convert the string into double unsorted
-        List<String> sortedFilterPriceList = new ArrayList<>();
-
-        for(WebElement p : beforeFilterPrice) {
-            sortedFilterPriceList.add(p.getText().toLowerCase());
-        }
-        Collections.sort(sortedFilterPriceList);
-
-        //Verify products order
-        Assert.assertEquals(unsortedFilterPriceList, sortedFilterPriceList,"Sorting is not done correctly");
-    }
-
-
-    @Test (priority = 2)
     public void productPageTest() throws InterruptedException {
         // Go to product page (T-Shirt)
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
@@ -118,7 +88,7 @@ public class ProductsPageFunctionalityCrossTest {
     }
 
 
-    @Test (priority = 3)
+    @Test (priority = 2)
     public void writeReview() {
         // Go to product page (T-Shirt)
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
@@ -149,8 +119,8 @@ public class ProductsPageFunctionalityCrossTest {
     }
 
 
-    @Test (priority = 4)
     // Sending review without rating (1-5 stars)
+    @Test (priority = 3)
     public void submitReviewWithoutRating(){
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
@@ -165,7 +135,7 @@ public class ProductsPageFunctionalityCrossTest {
     }
 
 
-    @Test (priority = 5)
+    @Test (priority = 4)
     public void submitReviewWithoutComment(){
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
@@ -186,7 +156,7 @@ public class ProductsPageFunctionalityCrossTest {
     }
 
 
-    @Test (priority = 6)
+    @Test (priority = 5)
     public void submitReviewWithoutName() {
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
@@ -210,7 +180,7 @@ public class ProductsPageFunctionalityCrossTest {
     }
 
 
-    @Test (priority = 7)
+    @Test (priority = 6)
     public void submitReviewWithoutEmail() {
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("V-Neck T-Shirt");
         driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys(Keys.ENTER);
